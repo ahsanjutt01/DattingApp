@@ -39,8 +39,15 @@ namespace DatingApp.API.EF
 
         public async Task<User> Register(User user, string password)
         {
-            CreatePasswordHash(password, out byte[] passwordHash, out byte[] psswordSalt);
+            CreatePasswordHash(password, out byte[] passwordHash, out byte[] passwordSalt);
 
+            user.PasswordHash=passwordHash;
+            user.PasswordSalt=passwordSalt;
+            // var list=await _context.Users.ToListAsync();
+            // foreach (var item in list)
+            // {
+            //   _context.Remove(item);   
+            // }
             await _context.Users.AddAsync(user);
             await _context.SaveChangesAsync();
 
