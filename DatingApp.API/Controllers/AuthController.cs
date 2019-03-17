@@ -37,14 +37,15 @@ namespace DatingApp.API.Controllers
             }
 
             var user = await _auth.Register(
-                new Models.User { Username = userForRegistetDto.Username }, 
+                new Models.User { Username = userForRegistetDto.Username },
                 userForRegistetDto.Password);
 
-            return Ok(new {Created = user});
+            return Ok(new { Created = user });
         }
         [HttpPost("login")]
         public async Task<IActionResult> Login(UserForLoginDto userForLoginDto)
         {
+            if (!ModelState.IsValid) return BadRequest(ModelState);
             var userFromRepo = await _auth.Login(userForLoginDto.Username, userForLoginDto.Password);
             if (userFromRepo == null)
                 return Unauthorized();
@@ -55,18 +56,19 @@ namespace DatingApp.API.Controllers
 
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config.GetSection("AppSettings:Token").Value));
 
-            var cred= new SigningCredentials(key, SecurityAlgorithms.HmacSha512);
+            var cred = new SigningCredentials(key, SecurityAlgorithms.HmacSha512);
 
-            var tokenDescriptor = new SecurityTokenDescriptor{
+            var tokenDescriptor = new SecurityTokenDescriptor
+            {
                 Subject = new ClaimsIdentity(claims),
                 Expires = DateTime.Now.AddDays(1),
                 SigningCredentials = cred
             };
 
-            var tokenHandler=new JwtSecurityTokenHandler();
-            var token= tokenHandler.CreateToken(tokenDescriptor);
+            var tokenHandler = new JwtSecurityTokenHandler();
+            var token = tokenHandler.CreateToken(tokenDescriptor);
 
-            return Ok(new {token = tokenHandler.WriteToken(token)});
+            return Ok(new { token = tokenHandler.WriteToken(token) });
 
 
         }
