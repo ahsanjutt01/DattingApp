@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-md">
   <div class="container">
-    <a class="navbar-brand" href="#">Dating App</a>
+    <a class="navbar-brand" [routerLink]="['/home']">Dating App</a>
     <button
       class="navbar-toggler"
       type="button"
@@ -15,14 +15,15 @@
 
     <!-- <div class="collapse navbar-collapse" id="navbarsExampleDefault"> -->
     <ul *ngIf="loggedIn()" class="navbar-nav mr-auto">
-      <li class="nav-item">
-        <a class="nav-link" href="#"
-          >Matches <span class="sr-only">(current)</span></a
-        >
+      <li class="nav-item" routerLinkActive="active">
+        <a class="nav-link" [routerLink]="['/member']">Matches <span class="sr-only">(current)</span></a>
       </li>
-      <li class="nav-item">
-        <a class="nav-link" href="#">Lists</a>
+      <li class="nav-item" routerLinkActive="active">
+        <a class="nav-link" [routerLink]="['/lists']">Lists</a>
       </li>
+        <li class="nav-item" routerLinkActive="active">
+            <a class="nav-link" [routerLink]="['/messages']">Messages</a>
+          </li>
     </ul>
     <div *ngIf="loggedIn()" class="dropdown mr-sm-2" dropdown>
       <a class="dropdown-toggle text-light" dropdownToggle>Wellcome {{authService.decodedToken?.unique_name | titlecase}}</a>
