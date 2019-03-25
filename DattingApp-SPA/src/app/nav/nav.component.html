@@ -29,7 +29,7 @@
       <a class="dropdown-toggle text-light" dropdownToggle>Wellcome {{authService.decodedToken?.unique_name | titlecase}}</a>
 
       <div class="dropdown-menu mt-3" *dropdownMenu>
-        <a href="#" class="dropdown-item"
+        <a [routerLink]="['/member/edit']" class="dropdown-item"
           ><i class="fa fa-user mt-2"></i>Edit Profile</a
         >
         <div class="dropdown-divider"></div>

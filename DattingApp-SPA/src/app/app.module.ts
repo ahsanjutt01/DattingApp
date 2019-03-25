@@ -2,8 +2,10 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import {HttpClientModule} from '@angular/common/http';
 import {FormsModule} from '@angular/forms';
-import { BsDropdownModule } from 'ngx-bootstrap';
+import { BsDropdownModule, TabsModule } from 'ngx-bootstrap';
 import { RouterModule } from '@angular/router';
+import { JwtModule } from '@auth0/angular-jwt';
+import { NgxGalleryModule } from 'ngx-gallery';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -17,10 +19,21 @@ import { AlertifyService } from './_service/alertify.service';
 import { from } from 'rxjs';
 import { ListComponent } from './list/list.component';
 import { MessagesComponent } from './messages/messages.component';
-import { MemberlistsComponent } from './memberlists/memberlists.component';
+import { MemberlistsComponent } from './members/memberlists/memberlists.component';
 import { appRoutes } from './routes';
 import { AuthGuard } from './_guard/auth.guard';
+import { UserService } from './_service/user.service';
+import { MemberCardComponent } from './members/memberCard/memberCard.component';
+import { MemberDetailComponent } from './members/member-detail/member-detail.component';
+import { MemberDetailResolver } from './_resolver/member-detail.resolver';
+import { MemberListResolver } from './_resolver/member-list.resolver';
+import { MemberEditComponent } from './members/member-edit/member-edit.component';
+import { MemberEditResolver } from './_resolver/member-edit.resolver';
+import { PreventUnsavedChanges } from './_guard/prevent-unsaved-changes.guard';
 
+export function tokenGetter() {
+return localStorage.getItem('token');
+}
 @NgModule({
    declarations: [
       AppComponent,
@@ -30,7 +43,10 @@ import { AuthGuard } from './_guard/auth.guard';
       RegisterComponent,
       ListComponent,
       MessagesComponent,
-      MemberlistsComponent
+      MemberlistsComponent,
+      MemberCardComponent,
+      MemberDetailComponent,
+      MemberEditComponent
    ],
    imports: [
       BrowserModule,
@@ -38,13 +54,27 @@ import { AuthGuard } from './_guard/auth.guard';
       HttpClientModule,
       FormsModule,
       BsDropdownModule.forRoot(),
-      RouterModule.forRoot(appRoutes)
+      NgxGalleryModule,
+      TabsModule.forRoot(),
+      RouterModule.forRoot(appRoutes),
+      JwtModule.forRoot({
+         config: {
+            tokenGetter: tokenGetter,
+            whitelistedDomains: ['localhost:5000'],
+            blacklistedRoutes: ['localhost:5000/api/auth']
+         }
+      })
    ],
    providers: [
       AuthService,
       ErrorInterceptorProvider,
       AlertifyService,
-      AuthGuard
+      AuthGuard,
+      PreventUnsavedChanges,
+      UserService,
+      MemberDetailResolver,
+      MemberListResolver,
+      MemberEditResolver
    ],
    bootstrap: [
       AppComponent

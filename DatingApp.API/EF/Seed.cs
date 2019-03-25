@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using DatingApp.API.Models;
 using Newtonsoft.Json;
@@ -19,11 +20,12 @@ namespace DatingApp.API.EF
             foreach(var user in users)
             {
                 CreatePasswordHash("Password",out byte[] passwordHash,out byte[] passwordSalt);
-
+                var year = 1994;
                 user.PasswordHash=passwordHash;
                 user.PasswordSalt=passwordSalt;
                 user.Username=user.Username.ToLower();
-
+                user.DateOfBrith = Convert.ToDateTime($"{year}-{2}-{6}");
+                year++; 
                 _context.Users.Add(user);
             }
 

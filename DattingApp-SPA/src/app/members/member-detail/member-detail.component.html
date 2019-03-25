@@ -1,0 +1,70 @@
+<div class="container mt-4">
+  <div>
+    <h1>{{user.knownAs}}' Profile</h1>
+  </div>
+  <div class="row">
+    <div class="col-sm-4">
+      <div class="card">
+        <img
+          src="{{ user?.photoUrl }}"
+          alt="{{ user?.username }}"
+          class="card-img-top img-thumbnail"
+        />
+        <div class="card-body">
+          <div>
+            <strong>Location</strong>
+            <p>{{ user?.city }}, {{ user?.country }}</p>
+          </div>
+          <div>
+            <strong>Age</strong>
+            <p>{{ user?.age }}</p>
+          </div>
+          <div>
+            <strong>Last Active</strong>
+            <p>{{ user?.lastAactive }}</p>
+          </div>
+          <div>
+            <strong>Member Since</strong>
+            <p>{{ user?.created | date }}</p>
+          </div>
+        </div>
+        <div class="card-footer">
+          <div class="btn-group d-flex">
+            <button class="btn btn-primary w-100">
+              <i class="fa fa-thumbs-up"></i> Like
+            </button>
+            <button class="btn btn-success w-100">
+              <i class="fa fa-envelope"></i> Message
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-8">
+      <div class="tab-panel">
+        <tabset>
+          <tab heading="About {{ user?.knownAs }}">
+            <h4>Description</h4>
+            <p>{{ user?.introduction }}</p>
+            <h4>Looking For</h4>
+            <p>{{ user?.lookingFor }}</p>
+          </tab>
+          <tab heading="Interests">
+            <h4>Intrests</h4>
+            <p>{{ user?.intrest }}</p>
+          </tab>
+          <tab heading="Photos">
+            <h4>Photos</h4>
+            <ngx-gallery
+              [options]="galleryOptions"
+              [images]="galleryImages"
+            ></ngx-gallery>
+          </tab>
+          <tab heading="Messages">
+            <P>Messages will go here..!</P>
+          </tab>
+        </tabset>
+      </div>
+    </div>
+  </div>
+</div>
