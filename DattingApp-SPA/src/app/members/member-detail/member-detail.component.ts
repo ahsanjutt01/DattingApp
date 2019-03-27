@@ -35,7 +35,7 @@ export class MemberDetailComponent implements OnInit {
         imagePercent: 100,
         thumbnailsColumns: 4,
         imageAnimation: NgxGalleryAnimation.Fade,
-        preview: false
+        // preview: false
       }
     ];
     this.galleryImages = this.getImages();
@@ -49,8 +49,8 @@ export class MemberDetailComponent implements OnInit {
         big: this.user.photos[i].url,
         description: this.user.photos[i].description
       });
-      return imageUrls;
     }
+    return imageUrls;
   }
   // loadUser() {
   //   this.userSerice.getUser(+this.route.snapshot.params['id']).subscribe(response => {

@@ -11,6 +11,7 @@ namespace DatingApp.API.Models
         public string Description { get; set; }
         public DateTime Added { get; set; }
         public bool IsMain { get; set; }
+        public string PublicId { get; set; }
         public User User { get; set; }
         [ForeignKey("User"), Required]
         public int UserId { get; set; }
