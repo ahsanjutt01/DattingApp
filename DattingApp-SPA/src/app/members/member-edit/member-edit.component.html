@@ -14,7 +14,7 @@
     <div class="col-sm-4">
       <div class="card">
         <img
-          src="{{ photoUrl }}"
+          src="{{ photoUrl || '../../../assets/user.png' }}"
           alt="{{ user?.username }}"
           class="card-img-top img-thumbnail"
         />
@@ -29,7 +29,7 @@
           </div>
           <div>
             <strong>Last Active</strong>
-            <p>{{ user?.lastAactive }}</p>
+            <p>{{ user?.lastActive | timeAgo }}</p>
           </div>
           <div>
             <strong>Member Since</strong>

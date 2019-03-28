@@ -1,6 +1,6 @@
 <div class="card mb-4">
   <div class="card-img-wrapper">
-    <img src="{{user.photoUrl}}" alt="{{user.knownAs}}" class="card-img-top">
+    <img src="{{user.photoUrl || '../../../assets/user.png'}}" alt="{{user.knownAs}}" class="card-img-top">
   <ul class="list-inline text-center animate member-icons">
     <li class="list-inline-item" [routerLink]="['/member/' + user.id ]"><button class="btn btn-primary">
       <i class="fa fa-user"></i>
@@ -14,7 +14,7 @@
   </ul>
   </div>
   <div class="card-body p-1">
-    <h6 class="card-title text center mb-1">
+    <h6 class="card-title text-center center mb-1">
       <i class="fa fa-user"></i>
       {{user.knownAs}} - {{user.age}}
     </h6>

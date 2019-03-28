@@ -24,7 +24,7 @@ namespace DatingApp.API.EF
                 user.PasswordHash=passwordHash;
                 user.PasswordSalt=passwordSalt;
                 user.Username=user.Username.ToLower();
-                user.DateOfBrith = Convert.ToDateTime($"{year}-{2}-{6}");
+                user.DateOfBirth = Convert.ToDateTime($"{year}-{2}-{6}");
                 year++; 
                 _context.Users.Add(user);
             }
