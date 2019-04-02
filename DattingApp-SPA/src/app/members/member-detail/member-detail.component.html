@@ -1,6 +1,6 @@
 <div class="container mt-4">
   <div>
-    <h1>{{user.knownAs}}' Profile</h1>
+    <h1>{{user.knownAs}}'s Profile</h1>
   </div>
   <div class="row">
     <div class="col-sm-4">
@@ -30,10 +30,10 @@
         </div>
         <div class="card-footer">
           <div class="btn-group d-flex">
-            <button class="btn btn-primary w-100">
+            <button class="btn btn-primary w-100" (click)="sendLike(user.id)">
               <i class="fa fa-thumbs-up"></i> Like
             </button>
-            <button class="btn btn-success w-100">
+            <button class="btn btn-success w-100" (click)="selectTab(3)">
               <i class="fa fa-envelope"></i> Message
             </button>
           </div>
@@ -42,7 +42,7 @@
     </div>
     <div class="col-sm-8">
       <div class="tab-panel">
-        <tabset>
+        <tabset #tabSet>
           <tab heading="About {{ user?.knownAs }}">
             <h4>Description</h4>
             <p>{{ user?.introduction }}</p>
@@ -61,7 +61,7 @@
             ></ngx-gallery>
           </tab>
           <tab heading="Messages">
-            <P>Messages will go here..!</P>
+            <app-member-messages [recipientId]="user.id"></app-member-messages>
           </tab>
         </tabset>
       </div>
